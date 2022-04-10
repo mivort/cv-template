@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>{{ name }} {{ surname }} // {{ job_title }}</title>
+<link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+
+<style>
+
+:root {
+  --separator-color: #eee;
+  --separator-size: 3px;
+  --list-bullet-color: #777;
+}
+
+html {
+  display: flex;
+  justify-content: center;
+  font-family: 'Open Sans Light';
+}
+
+body {
+  max-width: 920px;
+}
+
+h1, h2 {
+  font-family: 'Open Sans Extrabold';
+}
+
+div.place-title {
+  font-family: 'Open Sans Semibold';
+  font-weight: bold;
+  font-size: 18px;
+}
+
+h1, h2, h3 {
+  text-transform: uppercase;
+  margin: 0px;
+}
+
+h1 {
+  font-size: 42px;
+}
+
+h2 {
+  border-bottom: dashed var(--separator-color) var(--separator-size);
+  font-size: 24px;
+  margin: 0px 0px 12px 0px;
+}
+
+h3 {
+  font-size: 12px;
+  margin: 0px 0px 8px 0px;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px dotted #000;
+}
+
+ul {
+  padding: 0px 4px;
+  margin: 0px 0px 12px 0px;
+}
+
+li {
+  list-style-type: none;
+  position: relative;
+  margin-left: 12px;
+}
+
+li::before {
+  content: "\2022";
+  position: absolute;
+  color: var(--list-bullet-color);
+  left: -12px;
+}
+
+li.place {
+  margin-bottom: 8px;
+}
+
+header {
+  border-bottom: solid var(--separator-color) var(--separator-size);
+  margin: 8px;
+  padding: 4px 12px;
+  display: flex;
+}
+
+main {
+  display: flex;
+}
+
+ul.skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+ul.technologies {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+img.photo {
+  border: solid var(--separator-color) 6px;
+  border-radius: 50%;
+  width: 96px;
+  height: 96px;
+  margin: 0px 12px 0px 0px;
+}
+
+div.section {
+  padding: 8px 16px;
+  flex: 1;
+}
+
+div.sidebar {
+  border-right: solid var(--separator-color) var(--separator-size);
+  max-width: 280px;
+  flex: 0;
+}
+
+div.keyval {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.keyval-line {
+  flex: 1;
+  height: 0px;
+  border-bottom: dashed var(--separator-color) 1px;
+  margin: 0px 8px;
+}
+
+div.percentage {
+  background-color: #eee;
+  border-radius: 4px;
+  border: solid #777 1px;
+  padding: 1px;
+  margin: 0px 22px 0px 4px;
+  min-width: 64px;
+  height: 8px;
+}
+
+div.percentage div.bar {
+  background-color: #f77;
+  border-radius: 3px;
+  height: 100%;
+}
+
+div.dates {
+  font-size: 14px;
+  display: inline-block;
+  font-family: 'Open Sans Light';
+  font-weight: normal;
+}
+
+img.icon {
+  width: 22px;
+  height: 22px;
+  margin: -2px 0px 0px 0px;
+  vertical-align: middle;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.large {
+  font-size: 110%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<img class="photo" src="{{ photo }}" />
+<div>
+  <h1>{{ name }} {{ surname }}</h1>
+  <div>{{ job_title }}</div>
+</div>
+</header>
+
+<main>
+  <div class="section sidebar">
+    <h2>Contacts</h2>
+    <ul>
+      <li class="nowrap">
+        <img class="icon" src="resources/mail.svg" />
+        <a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a>
+      </li>
+      <li class="nowrap">
+        <img class="icon" src="resources/phone.svg" />
+        <a href="tel:{{ contacts.phone }}">{{ contacts.phone }}</a>
+      </li>
+      <li>
+        <img class="icon" src="resources/location.svg" />
+        {{ contacts.location }}
+      </li>
+      {% if contacts.github is defined %}
+      <li>
+        <img class="icon" src="resources/github.svg" />
+        <a href="https://github.com/{{ contacts.github }}">{{ contacts.github }}</a>
+      </li>
+      {% endif %}
+    </ul>
+
+
+    <h2>Languages</h2>
+    <ul>
+    {% for l in languages %}
+      <li>
+        <div class="keyval">
+          <div>{{ l.language }}</div>
+          <div class="keyval-line"></div>
+          <div>{{ l.level }}</div>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+
+
+    <h2>Education</h2>
+    <ul>
+    {% for e in education %}
+      <li class="place">
+        <div class="dates"><img class="icon" src="resources/calendar.svg" /> {{ e.dates }}</div>
+        <div class="place-title">{{ e.major }}</div>
+        <div><b>{{ e.name }}</b></div>
+      </li>
+    {% endfor %}
+    </ul>
+
+    {% if interests is defined %}
+    <h2>Interests</h2>
+    <ul>
+    {% for i in interests %}
+      <li>{{ i.area }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <div class="section board">
+    <h2>Skills</h2>
+    <h3>Programming languages</h3>
+    <ul class="skills">
+    {% for s in skills.languages %}
+      <li>
+        <div class="keyval">
+          <div>{{ s.skill }}</div>
+          <div class="percentage">
+            <div class="bar" style="width: {{ s.value }}%;"></div>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+
+    <h3>Technologies</h3>
+    <ul class="technologies">
+    {% for s in skills.technologies %}
+      <li>
+        <div class="keyval">
+          <div>{{ s.skill }}</div>
+          <div class="percentage">
+            <div class="bar" style="width: {{ s.value }}%;"></div>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+
+    <h2>Experience</h2>
+
+    <h3>Full-time employment</h3>
+    <ul>
+    {% for e in experience %}
+      <li class="place">
+        <div class="place-title">
+          {{ e.company }}
+          <div class="dates"><img class="icon" src="resources/calendar.svg" /> {{ e.dates }}</div>
+        </div>
+        {% if e.projects is defined %}
+        <ul>
+        {% for p in e.projects %}
+          <li>{{ p.description }}
+        {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+
+    {% if personal_projects is defined %}
+    <h3>Personal projects</h3>
+    {% for p in personal_projects %}
+      <li class="place">
+        <div class="place-title">
+          {{ p.title }}
+          <div class="dates"><img class="icon" src="resources/calendar.svg" /> {{ p.dates }}</div>
+        </div>
+        <div>{{ p.description }}</div>
+      </li>
+    {% endfor %}
+    {% endif %}
+  </div>
+</main>
+
+</body>
+</html>
