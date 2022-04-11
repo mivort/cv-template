@@ -6,7 +6,7 @@ OUT_HTML := cv.html
 all: $(OUT_HTML)
 
 $(OUT_HTML): $(INPUT_TEMPLATE) $(INPUT_YAML)
-	tera --yaml $(INPUT_YAML) --file $(INPUT_TEMPLATE) > $(OUT_HTML)
+	tera --escape --template $(INPUT_TEMPLATE) $(INPUT_YAML) --out $(OUT_HTML) > /dev/null
 
 .PHONY: clean
 

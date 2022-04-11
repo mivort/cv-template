@@ -16,12 +16,13 @@ Dependencies
 How to build
 ============
 
-First, clone the repo and fill data fields in ``data.yaml`` file.
+First, clone the repo and fill data fields in ``data.yaml`` file. After that
+use one of available Jinja2 template renderers.
 
 Using ``tera-cli``
 ------------------
 
-Supplied ``Makefile`` uses `tera-cli <https://github.com/guangie88/tera-cli>`_.
+Supplied ``Makefile`` uses `tera-cli <https://github.com/chevdor/tera-cli>`_.
 In case you have it installed, run:
 
 .. code:: sh
