@@ -21,8 +21,6 @@ skills:
       value: 90
     - skill: Language 5
       value: 70
-    - skill: Language 6
-      value: 30
   technologies:
     - skill: Tech 1
       value: 100
@@ -43,6 +41,11 @@ education:
 interests:
   - area: Lorem ipsum
   - area: Dolor sit amet
+
+areas:
+  - area: Lorem ipsum
+  - area: Quam sit amet
+  - area: Nunc in iaculis
 
 experience:
   - company: Company Name

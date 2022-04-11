@@ -95,12 +95,12 @@ main {
 
 ul.skills {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 ul.technologies {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 img.photo {
@@ -113,13 +113,23 @@ img.photo {
 
 div.section {
   padding: 8px 16px;
+}
+
+div.board {
   flex: 1;
 }
 
 div.sidebar {
-  border-right: solid var(--separator-color) var(--separator-size);
   max-width: 280px;
   flex: 0;
+}
+
+div.leftbar {
+  border-right: solid var(--separator-color) var(--separator-size);
+}
+
+div.rightbar {
+  border-left: solid var(--separator-color) var(--separator-size);
 }
 
 div.keyval {
@@ -135,12 +145,21 @@ div.keyval-line {
   margin: 0px 8px;
 }
 
+div.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0px 12px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: dashed var(--separator-color) var(--separator-size);
+}
+
 div.percentage {
   background-color: #eee;
   border-radius: 4px;
   border: solid #777 1px;
   padding: 1px;
-  margin: 0px 22px 0px 4px;
+  margin: 0px 4px 0px 8px;
   min-width: 64px;
   height: 8px;
 }
@@ -188,7 +207,7 @@ img.icon {
 </header>
 
 <main>
-  <div class="section sidebar">
+  <div class="section sidebar leftbar">
     <h2>Contacts</h2>
     <ul>
       <li class="nowrap">
@@ -232,7 +251,7 @@ img.icon {
       <li class="place">
         <div class="dates"><img class="icon" src="resources/calendar.svg" /> {{ e.dates }}</div>
         <div class="place-title">{{ e.major }}</div>
-        <div><b>{{ e.name }}</b></div>
+        <div>{{ e.name }}</div>
       </li>
     {% endfor %}
     </ul>
@@ -248,36 +267,14 @@ img.icon {
   </div>
 
   <div class="section board">
-    <h2>Skills</h2>
-    <h3>Programming languages</h3>
-    <ul class="skills">
-    {% for s in skills.languages %}
-      <li>
-        <div class="keyval">
-          <div>{{ s.skill }}</div>
-          <div class="percentage">
-            <div class="bar" style="width: {{ s.value }}%;"></div>
-          </div>
-        </div>
-      </li>
-    {% endfor %}
-    </ul>
-
-    <h3>Technologies</h3>
-    <ul class="technologies">
-    {% for s in skills.technologies %}
-      <li>
-        <div class="keyval">
-          <div>{{ s.skill }}</div>
-          <div class="percentage">
-            <div class="bar" style="width: {{ s.value }}%;"></div>
-          </div>
-        </div>
-      </li>
-    {% endfor %}
-    </ul>
-
     <h2>Experience</h2>
+    <div class="tags">
+    {% for a in areas %}
+      <div class="nowrap">
+        <img class="icon" src="resources/label.svg" /> {{ a.area }}
+      </div>
+    {% endfor %}
+    </div>
 
     <h3>Full-time employment</h3>
     <ul>
@@ -310,6 +307,37 @@ img.icon {
       </li>
     {% endfor %}
     {% endif %}
+  </div>
+
+  <div class="section sidebar rightbar">
+    <h2>Skills</h2>
+    <h3>Programming languages</h3>
+    <ul class="skills">
+    {% for s in skills.languages %}
+      <li>
+        <div class="keyval">
+          <div class="nowrap">{{ s.skill }}</div>
+          <div class="percentage">
+            <div class="bar" style="width: {{ s.value }}%;"></div>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+
+    <h3>Technologies</h3>
+    <ul class="technologies">
+    {% for s in skills.technologies %}
+      <li>
+        <div class="keyval">
+          <div class="nowrap">{{ s.skill }}</div>
+          <div class="percentage">
+            <div class="bar" style="width: {{ s.value }}%;"></div>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
   </div>
 </main>
 
